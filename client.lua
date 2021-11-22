@@ -20,18 +20,16 @@ RegisterNetEvent("qb-vape:client:use", function()
 		ClearPedSecondaryTask(ped)
 	end
 end)
-p_smoke_location = {
+PedBones = {
 	20279,
 }
-p_smoke_particle = "exp_grd_bzgas_smoke"
-p_smoke_particle_asset = "core" 
 RegisterNetEvent("qb-vape:client:effects", function(c_ped, coords)
 	local distance = #(GetEntityCoords(PlayerPedId()) - coords)
 	if distance <= 300 then
-		for _,bones in pairs(p_smoke_location) do
+		for _,bones in pairs(PedBones) do
 			if DoesEntityExist(NetToPed(c_ped)) and not IsEntityDead(NetToPed(c_ped)) then
-				createdSmoke = UseParticleFxAssetNextCall(p_smoke_particle_asset)
-				createdPart = StartParticleFxLoopedOnEntityBone(p_smoke_particle, NetToPed(c_ped), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, GetPedBoneIndex(NetToPed(c_ped), bones), Config.SmokeSize, 0.0, 0.0, 0.0)
+				createdSmoke = UseParticleFxAssetNextCall("core" )
+				createdPart = StartParticleFxLoopedOnEntityBone("exp_grd_bzgas_smoke", NetToPed(c_ped), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, GetPedBoneIndex(NetToPed(c_ped), bones), Config.SmokeSize, 0.0, 0.0, 0.0)
 				Wait(Config.SmokeTime)
 				--Wait(250)
 				while DoesParticleFxLoopedExist(createdSmoke) do
@@ -42,12 +40,12 @@ RegisterNetEvent("qb-vape:client:effects", function(c_ped, coords)
 					StopParticleFxLooped(createdPart, 1)
 				Wait(0)
 				end
-				while DoesParticleFxLoopedExist(p_smoke_particle) do
-					StopParticleFxLooped(p_smoke_particle, 1)
+				while DoesParticleFxLoopedExist("exp_grd_bzgas_smoke") do
+					StopParticleFxLooped("exp_grd_bzgas_smoke", 1)
 				Wait(0)
 				end
-				while DoesParticleFxLoopedExist(p_smoke_particle_asset) do
-					StopParticleFxLooped(p_smoke_particle_asset, 1)
+				while DoesParticleFxLoopedExist("core" ) do
+					StopParticleFxLooped("core" , 1)
 				Wait(0)
 				end
 				Wait(Config.SmokeTime*3)
