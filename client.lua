@@ -20,38 +20,32 @@ RegisterNetEvent("qb-vape:client:use", function()
 		ClearPedSecondaryTask(ped)
 	end
 end)
-PedBones = {
-	20279,
-}
-RegisterNetEvent("qb-vape:client:effects", function(c_ped, coords)
+RegisterNetEvent("qb-vape:client:effects", function(ped, coords)
 	local distance = #(GetEntityCoords(PlayerPedId()) - coords)
 	if distance <= 300 then
-		for _,bones in pairs(PedBones) do
-			if DoesEntityExist(NetToPed(c_ped)) and not IsEntityDead(NetToPed(c_ped)) then
-				createdSmoke = UseParticleFxAssetNextCall("core" )
-				createdPart = StartParticleFxLoopedOnEntityBone("exp_grd_bzgas_smoke", NetToPed(c_ped), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, GetPedBoneIndex(NetToPed(c_ped), bones), Config.SmokeSize, 0.0, 0.0, 0.0)
-				Wait(Config.SmokeTime)
-				--Wait(250)
-				while DoesParticleFxLoopedExist(createdSmoke) do
-					StopParticleFxLooped(createdSmoke, 1)
+		if DoesEntityExist(NetToPed(ped)) and not IsEntityDead(NetToPed(ped)) then
+			Smoke = UseParticleFxAssetNextCall("core")
+			Particle = StartParticleFxLoopedOnEntityBone("exp_grd_bzgas_smoke", NetToPed(ped), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, GetPedBoneIndex(NetToPed(ped), 20279), Config.SmokeSize, 0.0, 0.0, 0.0)
+			Wait(Config.SmokeTime)
+			while DoesParticleFxLoopedExist(Smoke) do
+				StopParticleFxLooped(Smoke, 1)
 				Wait(0)
-				end
-				while DoesParticleFxLoopedExist(createdPart) do
-					StopParticleFxLooped(createdPart, 1)
-				Wait(0)
-				end
-				while DoesParticleFxLoopedExist("exp_grd_bzgas_smoke") do
-					StopParticleFxLooped("exp_grd_bzgas_smoke", 1)
-				Wait(0)
-				end
-				while DoesParticleFxLoopedExist("core" ) do
-					StopParticleFxLooped("core" , 1)
-				Wait(0)
-				end
-				Wait(Config.SmokeTime*3)
-				RemoveParticleFxFromEntity(NetToPed(c_ped))
-				break
 			end
+			while DoesParticleFxLoopedExist(Particle) do
+				StopParticleFxLooped(Particle, 1)
+				Wait(0)
+			end
+			while DoesParticleFxLoopedExist("exp_grd_bzgas_smoke") do
+				StopParticleFxLooped("exp_grd_bzgas_smoke", 1)
+				Wait(0)
+			end
+			while DoesParticleFxLoopedExist("core" ) do
+				StopParticleFxLooped("core" , 1)
+				Wait(0)
+			end
+			Wait(Config.SmokeTime*3)
+			RemoveParticleFxFromEntity(NetToPed(ped))
+			break
 		end
 	end
 end)
