@@ -1,4 +1,4 @@
-local QBCore = exports[Config.GetObject]:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 RegisterNetEvent("qb-vape:server:effects", function(entity, coords)
 	for _, player in pairs(QBCore.Functions.GetPlayers()) do
