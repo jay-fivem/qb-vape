@@ -45,7 +45,6 @@ RegisterNetEvent("qb-vape:client:effects", function(ped, coords)
 			end
 			Wait(Config.SmokeTime*3)
 			RemoveParticleFxFromEntity(NetToPed(ped))
-			break
 		end
 	end
 end)
