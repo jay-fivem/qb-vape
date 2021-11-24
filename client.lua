@@ -1,9 +1,11 @@
+local vaping = false
 RegisterNetEvent("qb-vape:client:use", function()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	local ad = "mp_player_inteat@burger"
 	local anim = "mp_player_int_eat_burger"
-	if (DoesEntityExist(ped) and not IsEntityDead(ped)) then
+	if (DoesEntityExist(ped) and not IsEntityDead(ped)) and not vaping then
+		vaping = true
 		while (not HasAnimDictLoaded(ad)) do
 			RequestAnimDict(ad)
 			Wait(1)
@@ -18,6 +20,7 @@ RegisterNetEvent("qb-vape:client:use", function()
 		DeleteObject(vape)
 		ClearPedTasksImmediately(ped)
 		ClearPedSecondaryTask(ped)
+		vaping = false
 	end
 end)
 RegisterNetEvent("qb-vape:client:effects", function(ped, coords)
