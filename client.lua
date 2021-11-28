@@ -16,11 +16,11 @@ RegisterNetEvent("qb-vape:client:use", function()
 		PlaySoundFrontend(-1, "Beep_Red", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1)
 		Wait(950)
 		TriggerServerEvent("qb-vape:server:effects", PedToNet(ped), coords)
-		TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
 		Wait(950)
 		DeleteObject(vape)
 		ClearPedTasksImmediately(ped)
 		ClearPedSecondaryTask(ped)
+		TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
 		vaping = false
 	end
 end)
