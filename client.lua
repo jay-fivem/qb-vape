@@ -18,8 +18,7 @@ RegisterNetEvent("qb-vape:client:use", function()
 		TriggerServerEvent("qb-vape:server:effects", PedToNet(ped), coords)
 		Wait(950)
 		DeleteObject(vape)
-		ClearPedTasksImmediately(ped)
-		ClearPedSecondaryTask(ped)
+        	StopAnimTask(ped, ad, anim, 1.0)
 		TriggerServerEvent('hud:server:RelieveStress', math.random(2, 4))
 		vaping = false
 	end
